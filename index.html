@@ -1,420 +1,285 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Infografía: Glosario Maestro de IA</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Glosario IA · Learning Hub</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap');
-body {
-font-family: 'Inter', sans-serif;
-background-color: #0f172a;
-color: #f8fafc;
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:'Inter',sans-serif;
+  background:#0b0c0f;
+  color:#e8eaed;
+  display:flex;
 }
-.chart-container {
-position: relative;
-width: 100%;
-max-width: 500px;
-margin-left: auto;
-margin-right: auto;
-height: 300px;
+
+/* SIDEBAR */
+.sidebar{
+  width:260px;
+  height:100vh;
+  position:fixed;
+  background:#111318;
+  border-right:1px solid #1f2229;
+  padding:30px 20px;
 }
-@media (min-width: 768px) {
-.chart-container {
-height: 350px;
+
+.logo{
+  font-weight:700;
+  font-size:20px;
+  margin-bottom:30px;
 }
+
+.nav a{
+  display:block;
+  text-decoration:none;
+  color:#9aa0a6;
+  padding:10px 12px;
+  border-radius:8px;
+  margin-bottom:6px;
+  font-size:14px;
+  transition:all .2s ease;
 }
-.glass-card {
-background: rgba(30, 41, 59, 0.7);
-backdrop-filter: blur(10px);
-border: 1px solid rgba(148, 163, 184, 0.1);
+
+.nav a:hover{
+  background:#1a1d24;
+  color:white;
 }
-.text-gradient {
-background-clip: text;
--webkit-background-clip: text;
--webkit-text-fill-color: transparent;
+
+/* MAIN */
+.main{
+  margin-left:260px;
+  padding:60px 60px 80px;
+  max-width:1100px;
 }
-/* Estilo para scroll horizontal suave en móviles para el diagrama de flujo */
-.hide-scrollbar::-webkit-scrollbar {
-display: none;
+
+.hero h1{
+  font-size:46px;
+  margin-bottom:10px;
 }
-.hide-scrollbar {
--ms-overflow-style: none;
-scrollbar-width: none;
+
+.hero p{
+  color:#9aa0a6;
+  max-width:600px;
 }
+
+.search{
+  margin-top:25px;
+}
+
+.search input{
+  background:#111318;
+  border:1px solid #262a33;
+  padding:12px 16px;
+  border-radius:10px;
+  width:280px;
+  color:white;
+}
+
+.section{
+  margin-top:70px;
+}
+
+.section h2{
+  font-size:26px;
+  margin-bottom:25px;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:20px;
+}
+
+.card{
+  background:#111318;
+  border:1px solid #20242c;
+  padding:20px;
+  border-radius:16px;
+  transition:all .25s ease;
+  opacity:0;
+  transform:translateY(10px);
+  animation:fadeUp .6s forwards;
+}
+
+.card:hover{
+  transform:translateY(-6px);
+  border-color:#3b82f6;
+  box-shadow:0 10px 30px rgba(0,0,0,.35);
+}
+
+.card h3{
+  margin-top:0;
+  font-size:17px;
+  color:#60a5fa;
+}
+
+.card p{
+  font-size:14px;
+  color:#c7cbd1;
+}
+
+footer{
+  margin-top:80px;
+  color:#7b8088;
+  font-size:13px;
+}
+
+/* ANIMATIONS */
+@keyframes fadeUp{
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .sidebar{
+    display:none;
+  }
+
+  .main{
+    margin-left:0;
+    padding:40px 25px;
+  }
+}
+
 </style>
-<script>
-tailwind.config = {
-theme: {
-extend: {
-colors: {
-iaPrimary: '#06b6d4',
-iaSecondary: '#8b5cf6',
-iaAccent: '#ec4899',
-iaDark: '#0f172a',
-iaCard: '#1e293b'
-}
-}
-}
-}
-</script>
 </head>
-<body class="antialiased selection:bg-iaPrimary selection:text-white flex flex-col min-h-screen">
 
-<!-- HEADER / NAV -->
-<nav class="fixed top-0 left-0 w-full z-50 bg-iaDark/80 backdrop-blur-md border-b border-slate-800 px-4 md:px-6 py-4">
-<div class="max-w-7xl mx-auto flex justify-between items-center">
-<div class="flex items-center space-x-2">
-<div class="w-8 h-8 bg-iaPrimary rounded-lg flex items-center justify-center font-bold text-iaDark">D</div>
-<span class="text-xl font-black tracking-tighter text-iaPrimary">DATAFLOW IA</span>
-</div>
-<div class="hidden md:block text-xs text-slate-500 font-medium tracking-widest uppercase">Inteligencia Artificial Pro</div>
-</div>
-</nav>
+<body>
 
-<!-- HERO SECTION -->
-<header class="pt-28 md:pt-32 pb-10 md:pb-12 px-6 text-center border-b border-slate-800">
-<div class="max-w-4xl mx-auto">
-<div class="inline-block p-4 rounded-full bg-slate-800 mb-6 text-3xl md:text-4xl">📘</div>
-<h1 class="text-3xl md:text-6xl font-extrabold mb-6 tracking-tight leading-tight">
-Glosario Maestro: <br>
-<span class="bg-gradient-to-r from-iaPrimary via-iaSecondary to-iaAccent text-gradient">IA y Desarrollo Moderno</span>
-</h1>
-<p class="text-base md:text-xl text-slate-400 max-w-2xl mx-auto leading-relaxed">
-Una visualización estructurada de las definiciones precisas sobre los pilares de la Inteligencia Artificial y las tecnologías web que impulsan la revolución digital actual.
-</p>
-</div>
-</header>
+<div class="sidebar">
 
-<main class="max-w-7xl mx-auto px-4 md:px-6 mt-12 md:mt-16 space-y-20 md:space-y-24 flex-grow">
+<div class="logo">⚡ DataFlow IA</div>
 
-<!-- ECOSISTEMA SECTION -->
-<section>
-<div class="text-center mb-10 md:mb-12">
-<h2 class="text-2xl md:text-3xl font-bold mb-4 text-white">Panorama del Ecosistema</h2>
-<p class="text-slate-400 max-w-2xl mx-auto text-sm md:text-base">Comprender la IA requiere analizar sus diferentes pilares. A continuación, desglosamos la distribución de los conceptos fundamentales.</p>
-</div>
-
-<div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
-<!-- Cards Grid -->
-<div class="grid grid-cols-2 gap-3 md:gap-4 order-2 lg:order-1">
-<div class="glass-card rounded-xl md:rounded-2xl p-4 md:p-6 text-center transform hover:scale-105 transition-transform">
-<div class="text-2xl md:text-3xl mb-2">🤖</div>
-<div class="text-3xl md:text-4xl font-bold text-iaPrimary mb-1">8</div>
-<div class="text-[10px] md:text-sm text-slate-400 uppercase tracking-wider">Términos de IA & ML</div>
-</div>
-<div class="glass-card rounded-xl md:rounded-2xl p-4 md:p-6 text-center transform hover:scale-105 transition-transform">
-<div class="text-2xl md:text-3xl mb-2">🌐</div>
-<div class="text-3xl md:text-4xl font-bold text-iaSecondary mb-1">5</div>
-<div class="text-[10px] md:text-sm text-slate-400 uppercase tracking-wider">Tecnologías Web</div>
-</div>
-<div class="glass-card rounded-xl md:rounded-2xl p-4 md:p-6 text-center transform hover:scale-105 transition-transform">
-<div class="text-2xl md:text-3xl mb-2">🚀</div>
-<div class="text-3xl md:text-4xl font-bold text-iaAccent mb-1">5</div>
-<div class="text-[10px] md:text-sm text-slate-400 uppercase tracking-wider">Infraestructura</div>
-</div>
-<div class="glass-card rounded-xl md:rounded-2xl p-4 md:p-6 text-center transform hover:scale-105 transition-transform">
-<div class="text-2xl md:text-3xl mb-2">💡</div>
-<div class="text-3xl md:text-4xl font-bold text-emerald-400 mb-1">5</div>
-<div class="text-[10px] md:text-sm text-slate-400 uppercase tracking-wider">Conceptos Éticos</div>
-</div>
-</div>
-
-<!-- Chart -->
-<div class="glass-card rounded-xl md:rounded-2xl p-4 md:p-6 flex flex-col justify-center order-1 lg:order-2">
-<h3 class="text-lg md:text-xl font-semibold mb-4 md:mb-6 text-center">Distribución del Conocimiento</h3>
-<div class="chart-container">
-<canvas id="categoryChart"></canvas>
-</div>
-<p class="text-xs md:text-sm text-slate-400 mt-6 text-center italic">El núcleo del glosario se centra en los algoritmos y modelos fundacionales (IA/ML).</p>
-</div>
-</div>
-</section>
-
-<!-- ARQUITECTURA SECTION -->
-<section class="py-6 md:py-12">
-<div class="text-center mb-8 md:mb-12">
-<h2 class="text-2xl md:text-3xl font-bold mb-4 text-white">Arquitectura de un Sistema Inteligente</h2>
-<p class="text-slate-400 max-w-2xl mx-auto text-sm md:text-base">¿Cómo se relacionan estos conceptos? Este flujo ilustra la interacción entre frontend, backend e IA.</p>
-</div>
-
-<!-- Contenedor con scroll lateral en móviles para no romper el diseño -->
-<div class="glass-card rounded-xl md:rounded-2xl p-6 md:p-8 overflow-x-auto hide-scrollbar">
-<div class="min-w-[750px] flex items-center justify-between text-center space-x-2 md:space-x-4">
-<div class="flex-1">
-<div class="bg-slate-800 border-2 border-iaPrimary rounded-xl p-3 md:p-4 shadow-lg shadow-iaPrimary/20">
-<div class="text-xl md:text-2xl mb-1 md:mb-2">👤</div>
-<div class="font-bold text-xs md:text-base">Usuario</div>
-<div class="text-[10px] text-slate-400 mt-1">Escribe un Prompt</div>
-</div>
-</div>
-<div class="text-iaPrimary text-xl md:text-2xl font-bold">➡</div>
-<div class="flex-1">
-<div class="bg-slate-800 border-2 border-iaSecondary rounded-xl p-3 md:p-4 shadow-lg shadow-iaSecondary/20">
-<div class="text-xl md:text-2xl mb-1 md:mb-2">🌐</div>
-<div class="font-bold text-xs md:text-base">Frontend</div>
-<div class="text-[10px] text-slate-400 mt-1">HTML, CSS, JS</div>
-</div>
-</div>
-<div class="text-iaSecondary text-xl md:text-2xl font-bold">➡</div>
-<div class="flex-1 flex flex-col space-y-4 relative">
-<div class="bg-slate-800 border-2 border-iaAccent rounded-xl p-3 md:p-4 shadow-lg shadow-iaAccent/20">
-<div class="text-xl md:text-2xl mb-1 md:mb-2">⚙️</div>
-<div class="font-bold text-xs md:text-base">Backend / API</div>
-<div class="text-[10px] text-slate-400 mt-1">Frameworks</div>
-</div>
-<div class="text-iaAccent text-xl md:text-2xl font-bold absolute -bottom-6 md:-bottom-8 left-1/2 transform -translate-x-1/2">⬇</div>
-<div class="bg-slate-800 border-2 border-emerald-400 rounded-xl p-3 md:p-4 shadow-lg shadow-emerald-400/20 mt-10 md:mt-12">
-<div class="text-xl md:text-2xl mb-1 md:mb-2">🗄️</div>
-<div class="font-bold text-xs md:text-base">Base de Datos</div>
-<div class="text-[10px] text-slate-400 mt-1">Vectorial / RAG</div>
-</div>
-</div>
-<div class="text-iaAccent text-xl md:text-2xl font-bold">➡</div>
-<div class="flex-1">
-<div class="bg-slate-800 border-2 border-indigo-400 rounded-xl p-3 md:p-4 shadow-lg shadow-indigo-400/20">
-<div class="text-xl md:text-2xl mb-1 md:mb-2">🧠</div>
-<div class="font-bold text-xs md:text-base">LLM / Agente</div>
-<div class="text-[10px] text-slate-400 mt-1">Deep Learning</div>
-</div>
-</div>
-</div>
-</div>
-<div class="mt-4 md:hidden text-center">
-<p class="text-[10px] text-slate-500 animate-pulse">Desliza horizontalmente para ver el proceso completo →</p>
-</div>
-</section>
-
-<!-- DICCIONARIO SECTION -->
-<section>
-<div class="text-center mb-10 md:mb-16">
-<h2 class="text-2xl md:text-3xl font-bold mb-4 text-white">Diccionario Conceptual Detallado</h2>
-<p class="text-slate-400 max-w-2xl mx-auto text-sm md:text-base">Explora las definiciones organizadas por dominio.</p>
-</div>
-
-<div class="space-y-12 md:space-y-16 pb-12">
-<!-- IA / ML -->
-<div>
-<div class="flex items-center space-x-3 mb-6 border-b border-iaPrimary pb-2">
-<span class="text-2xl md:text-3xl">🤖</span>
-<h3 class="text-xl md:text-2xl font-bold text-iaPrimary">IA y Machine Learning</h3>
-</div>
-<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-<div class="glass-card p-5 md:p-6 rounded-xl border-t-4 border-t-iaPrimary">
-<h4 class="text-lg md:text-xl font-bold mb-3">Inteligencia Artificial (IA)</h4>
-<p class="text-slate-300 text-xs md:text-sm leading-relaxed">Campo de la informática dedicado a crear sistemas capaces de realizar tareas que normalmente requieren inteligencia humana.</p>
-</div>
-<div class="glass-card p-5 md:p-6 rounded-xl border-t-4 border-t-iaPrimary">
-<h4 class="text-lg md:text-xl font-bold mb-3">Machine Learning</h4>
-<p class="text-slate-300 text-xs md:text-sm leading-relaxed">Uso de datos y algoritmos para imitar la forma en que los humanos aprenden, mejorando gradualmente su precisión.</p>
-</div>
-<div class="glass-card p-5 md:p-6 rounded-xl border-t-4 border-t-iaPrimary">
-<h4 class="text-lg md:text-xl font-bold mb-3">LLM</h4>
-<p class="text-slate-300 text-xs md:text-sm leading-relaxed"><span class="italic text-iaPrimary">Large Language Model</span>. IA entrenada con cantidades masivas de texto para comprender y generar lenguaje.</p>
-</div>
-<div class="glass-card p-5 md:p-6 rounded-xl border-t-4 border-t-iaPrimary">
-<h4 class="text-lg md:text-xl font-bold mb-3">Prompt</h4>
-<p class="text-slate-300 text-xs md:text-sm leading-relaxed">Instrucción o texto que un usuario proporciona a un modelo de IA para obtener una respuesta específica.</p>
-</div>
-<div class="glass-card p-5 md:p-6 rounded-xl border-t-4 border-t-iaPrimary">
-<h4 class="text-lg md:text-xl font-bold mb-3">Algoritmo</h4>
-<p class="text-slate-300 text-xs md:text-sm leading-relaxed">Conjunto de reglas que una computadora sigue. En IA, procesan datos para encontrar patrones.</p>
-</div>
-<div class="glass-card p-5 md:p-6 rounded-xl border-t-4 border-t-iaPrimary">
-<h4 class="text-lg md:text-xl font-bold mb-3">Deep Learning</h4>
-<p class="text-slate-300 text-xs md:text-sm leading-relaxed">Evolución del ML que utiliza redes neuronales artificiales profundas para procesar datos complejos.</p>
-</div>
-<div class="glass-card p-5 md:p-6 rounded-xl border-t-4 border-t-iaPrimary">
-<h4 class="text-lg md:text-xl font-bold mb-3">RAG</h4>
-<p class="text-slate-300 text-xs md:text-sm leading-relaxed">Técnica que permite a una IA consultar fuentes externas de datos en tiempo real antes de responder.</p>
-</div>
-<div class="glass-card p-5 md:p-6 rounded-xl border-t-4 border-t-iaPrimary">
-<h4 class="text-lg md:text-xl font-bold mb-3">Fine-tuning</h4>
-<p class="text-slate-300 text-xs md:text-sm leading-relaxed">Entrenamiento adicional de un modelo pre-entrenado con datos específicos para especializarlo.</p>
-</div>
-</div>
-</div>
-
-<!-- WEB TECH -->
-<div>
-<div class="flex items-center space-x-3 mb-6 border-b border-iaSecondary pb-2">
-<span class="text-2xl md:text-3xl">🌐</span>
-<h3 class="text-xl md:text-2xl font-bold text-iaSecondary">Desarrollo y Tecnologías Web</h3>
-</div>
-<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-<div class="glass-card p-5 md:p-6 rounded-xl border-t-4 border-t-iaSecondary">
-<h4 class="text-lg md:text-xl font-bold mb-3">HTML</h4>
-<p class="text-slate-300 text-xs md:text-sm leading-relaxed">Lenguaje de marcado estándar para crear la estructura o "esqueleto" de las páginas web.</p>
-</div>
-<div class="glass-card p-5 md:p-6 rounded-xl border-t-4 border-t-iaSecondary">
-<h4 class="text-lg md:text-xl font-bold mb-3">CSS</h4>
-<p class="text-slate-300 text-xs md:text-sm leading-relaxed">Lenguaje de diseño encargado de la apariencia visual, colores y disposición de una web.</p>
-</div>
-<div class="glass-card p-5 md:p-6 rounded-xl border-t-4 border-t-iaSecondary">
-<h4 class="text-lg md:text-xl font-bold mb-3">JavaScript (JS)</h4>
-<p class="text-slate-300 text-xs md:text-sm leading-relaxed">Lenguaje que permite interactividad y lógica dinámica en el navegador del usuario.</p>
-</div>
-<div class="glass-card p-5 md:p-6 rounded-xl border-t-4 border-t-iaSecondary">
-<h4 class="text-lg md:text-xl font-bold mb-3">Frontend y Backend</h4>
-<p class="text-slate-300 text-xs md:text-sm leading-relaxed">El Frontend es lo visual; el Backend es la lógica del servidor y gestión de datos.</p>
-</div>
-<div class="glass-card p-5 md:p-6 rounded-xl border-t-4 border-t-iaSecondary">
-<h4 class="text-lg md:text-xl font-bold mb-3">Framework</h4>
-<p class="text-slate-300 text-xs md:text-sm leading-relaxed">Herramientas y reglas predefinidas que aceleran el desarrollo de software.</p>
-</div>
-</div>
-</div>
-
-<!-- INFRAESTRUCTURA -->
-<div>
-<div class="flex items-center space-x-3 mb-6 border-b border-iaAccent pb-2">
-<span class="text-2xl md:text-3xl">🚀</span>
-<h3 class="text-xl md:text-2xl font-bold text-iaAccent">Infraestructura y Herramientas</h3>
-</div>
-<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-<div class="glass-card p-5 md:p-6 rounded-xl border-t-4 border-t-iaAccent">
-<h4 class="text-lg md:text-xl font-bold mb-3">Plataformas de IA</h4>
-<p class="text-slate-300 text-xs md:text-sm leading-relaxed">Servicios que ofrecen modelos y herramientas listas para usar (ej: OpenAI).</p>
-</div>
-<div class="glass-card p-5 md:p-6 rounded-xl border-t-4 border-t-iaAccent">
-<h4 class="text-lg md:text-xl font-bold mb-3">API</h4>
-<p class="text-slate-300 text-xs md:text-sm leading-relaxed">Puente que permite que dos aplicaciones se comuniquen entre sí automáticamente.</p>
-</div>
-<div class="glass-card p-5 md:p-6 rounded-xl border-t-4 border-t-iaAccent">
-<h4 class="text-lg md:text-xl font-bold mb-3">Token</h4>
-<p class="text-slate-300 text-xs md:text-sm leading-relaxed">Unidad básica que procesan los LLM. Equivale aproximadamente a una palabra.</p>
-</div>
-<div class="glass-card p-5 md:p-6 rounded-xl border-t-4 border-t-iaAccent">
-<h4 class="text-lg md:text-xl font-bold mb-3">Alucinación</h4>
-<p class="text-slate-300 text-xs md:text-sm leading-relaxed">Cuando una IA genera información falsa pero gramaticalmente convincente.</p>
-</div>
-<div class="glass-card p-5 md:p-6 rounded-xl border-t-4 border-t-iaAccent">
-<h4 class="text-lg md:text-xl font-bold mb-3">Base de Datos Vectorial</h4>
-<p class="text-slate-300 text-xs md:text-sm leading-relaxed">Almacén especializado para que la IA busque información por "sentido" o concepto.</p>
-</div>
-</div>
-</div>
-
-<!-- ÉTICA -->
-<div>
-<div class="flex items-center space-x-3 mb-6 border-b border-emerald-400 pb-2">
-<span class="text-2xl md:text-3xl">💡</span>
-<h3 class="text-xl md:text-2xl font-bold text-emerald-400">Conceptos Emergentes y Ética</h3>
-</div>
-<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-<div class="glass-card p-5 md:p-6 rounded-xl border-t-4 border-t-emerald-400">
-<h4 class="text-lg md:text-xl font-bold mb-3">IA Generativa</h4>
-<p class="text-slate-300 text-xs md:text-sm leading-relaxed">Tecnología capaz de crear contenido original a partir de patrones aprendidos.</p>
-</div>
-<div class="glass-card p-5 md:p-6 rounded-xl border-t-4 border-t-emerald-400">
-<h4 class="text-lg md:text-xl font-bold mb-3">AGI</h4>
-<p class="text-slate-300 text-xs md:text-sm leading-relaxed">Nivel teórico de IA con capacidad intelectual general similar a la humana.</p>
-</div>
-<div class="glass-card p-5 md:p-6 rounded-xl border-t-4 border-t-emerald-400">
-<h4 class="text-lg md:text-xl font-bold mb-3">Agente de IA</h4>
-<p class="text-slate-300 text-xs md:text-sm leading-relaxed">Sistema autónomo que ejecuta acciones para cumplir un objetivo específico.</p>
-</div>
-<div class="glass-card p-5 md:p-6 rounded-xl border-t-4 border-t-emerald-400">
-<h4 class="text-lg md:text-xl font-bold mb-3">Sesgo Algorítmico</h4>
-<p class="text-slate-300 text-xs md:text-sm leading-relaxed">Prejuicios heredados de los datos que pueden causar resultados injustos.</p>
-</div>
-<div class="glass-card p-5 md:p-6 rounded-xl border-t-4 border-t-emerald-400">
-<h4 class="text-lg md:text-xl font-bold mb-3">Parámetros</h4>
-<p class="text-slate-300 text-xs md:text-sm leading-relaxed">Variables internas que definen el conocimiento y capacidad del modelo.</p>
-</div>
-</div>
+<div class="nav">
+<a href="#ia">IA & Machine Learning</a>
+<a href="#web">Desarrollo Web</a>
+<a href="#infra">Infraestructura</a>
+<a href="#etica">Conceptos y Ética</a>
 </div>
 
 </div>
-</section>
 
-</main>
+<div class="main">
 
-<!-- FOOTER -->
-<footer class="bg-iaDark border-t border-slate-800 pt-12 pb-8 px-6 mt-20">
-<div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center space-y-8 md:space-y-0 text-center md:text-left">
-<div class="flex flex-col space-y-2 items-center md:items-start">
-<div class="flex items-center space-x-2 mb-2">
-<div class="w-6 h-6 bg-iaPrimary rounded flex items-center justify-center font-bold text-iaDark text-xs">D</div>
-<span class="text-lg font-black tracking-tighter text-iaPrimary">DATAFLOW IA</span>
+<div class="hero">
+<h1>Glosario de IA</h1>
+<p>Aprende los conceptos fundamentales de Inteligencia Artificial, Machine Learning y desarrollo moderno de forma clara y visual.</p>
+
+<div class="search">
+<input type="text" id="search" placeholder="Buscar concepto..." />
 </div>
-<p class="text-slate-500 text-sm">Elevando la comprensión de la Inteligencia Artificial.</p>
+
 </div>
-<div class="flex flex-col space-y-3 text-sm text-slate-400">
-<a href="https://www.dataflowia.com" target="_blank" class="hover:text-iaPrimary transition-colors">www.dataflowia.com</a>
-<a href="mailto:contacto@dataflowia.com" class="hover:text-iaPrimary transition-colors">contacto@dataflowia.com</a>
+
+<!-- IA -->
+<div class="section" id="ia">
+<h2>🤖 Inteligencia Artificial y Machine Learning</h2>
+<div class="grid">
+
+<div class="card"><h3>Inteligencia Artificial</h3><p>Sistemas capaces de realizar tareas que normalmente requieren inteligencia humana como razonar o aprender.</p></div>
+
+<div class="card"><h3>Machine Learning</h3><p>Rama de la IA que permite a las máquinas aprender patrones a partir de datos.</p></div>
+
+<div class="card"><h3>LLM</h3><p>Modelos de lenguaje entrenados con grandes cantidades de texto para comprender y generar lenguaje humano.</p></div>
+
+<div class="card"><h3>Prompt</h3><p>Instrucción o pregunta que un usuario entrega a un modelo de IA.</p></div>
+
+<div class="card"><h3>Algoritmo</h3><p>Conjunto de pasos o reglas que una computadora sigue para resolver un problema.</p></div>
+
+<div class="card"><h3>Deep Learning</h3><p>Machine Learning basado en redes neuronales profundas capaces de analizar datos complejos.</p></div>
+
+<div class="card"><h3>RAG</h3><p>Técnica donde un modelo consulta documentos externos antes de generar una respuesta.</p></div>
+
+<div class="card"><h3>Fine‑tuning</h3><p>Entrenamiento adicional de un modelo para especializarlo en un tema específico.</p></div>
+
 </div>
-<div class="text-xs text-slate-500 font-medium">
-(copyright) 2026 DATAFLOW IA. <br class="hidden md:block"> Todos los derechos reservados.
+</div>
+
+<!-- WEB -->
+<div class="section" id="web">
+<h2>🌐 Desarrollo Web</h2>
+<div class="grid">
+
+<div class="card"><h3>HTML</h3><p>Lenguaje que define la estructura de una página web.</p></div>
+
+<div class="card"><h3>CSS</h3><p>Lenguaje encargado del diseño visual y estilos.</p></div>
+
+<div class="card"><h3>JavaScript</h3><p>Lenguaje que permite interacción y lógica en aplicaciones web.</p></div>
+
+<div class="card"><h3>Frontend</h3><p>Parte visible con la que interactúa el usuario.</p></div>
+
+<div class="card"><h3>Backend</h3><p>Parte lógica del servidor que procesa datos y APIs.</p></div>
+
+<div class="card"><h3>Framework</h3><p>Conjunto de herramientas que facilitan el desarrollo de software.</p></div>
+
 </div>
 </div>
+
+<!-- INFRA -->
+<div class="section" id="infra">
+<h2>🚀 Infraestructura y Herramientas</h2>
+<div class="grid">
+
+<div class="card"><h3>Plataformas de IA</h3><p>Ecosistemas que ofrecen modelos y herramientas para crear aplicaciones de inteligencia artificial.</p></div>
+
+<div class="card"><h3>API</h3><p>Interfaz que permite que diferentes aplicaciones se comuniquen entre sí.</p></div>
+
+<div class="card"><h3>Token</h3><p>Unidad mínima de texto que procesan los modelos de lenguaje.</p></div>
+
+<div class="card"><h3>Alucinación</h3><p>Cuando una IA genera información incorrecta que parece real.</p></div>
+
+<div class="card"><h3>Base de Datos Vectorial</h3><p>Base optimizada para buscar información por significado y similitud.</p></div>
+
+</div>
+</div>
+
+<!-- ETICA -->
+<div class="section" id="etica">
+<h2>💡 Conceptos Emergentes y Ética</h2>
+<div class="grid">
+
+<div class="card"><h3>IA Generativa</h3><p>Tecnología capaz de crear contenido nuevo como texto, imágenes o código.</p></div>
+
+<div class="card"><h3>AGI</h3><p>Hipotética inteligencia artificial con capacidades cognitivas equivalentes a las humanas.</p></div>
+
+<div class="card"><h3>Agente de IA</h3><p>Sistema capaz de ejecutar acciones de forma autónoma para cumplir objetivos.</p></div>
+
+<div class="card"><h3>Sesgo Algorítmico</h3><p>Prejuicios que un modelo puede heredar de los datos de entrenamiento.</p></div>
+
+<div class="card"><h3>Parámetros</h3><p>Variables internas que el modelo ajusta durante su entrenamiento.</p></div>
+
+</div>
+</div>
+
+<footer>
+Glosario IA · Learning Hub educativo<br><br>
+🌐 www.dataflowia.com<br>
+✉️ contacto@dataflowia.com<br><br>
+© 2026 DataFlow IA · Todos los derechos reservados
 </footer>
 
+</div>
+
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-const wrapLabel = (label, maxLength) => {
-if (label.length <= maxLength) return [label];
-const words = label.split(' ');
-const lines = [];
-let currentLine = '';
-for (let i = 0; i < words.length; i++) {
-if ((currentLine + words[i]).length > maxLength && currentLine.length > 0) {
-lines.push(currentLine.trim());
-currentLine = '';
-}
-currentLine += words[i] + ' ';
-}
-if (currentLine.trim().length > 0) {
-lines.push(currentLine.trim());
-}
-return lines;
-};
+const search = document.getElementById('search');
+const cards = document.querySelectorAll('.card');
 
-const rawLabels = [
-"IA y ML",
-"Tecnologías Web",
-"Infraestructura",
-"Ética y Emergentes"
-];
+search.addEventListener('keyup', e => {
+  const term = e.target.value.toLowerCase();
 
-const processedLabels = rawLabels.map(label => wrapLabel(label, 14));
-const dataValues = [8, 5, 5, 5];
-const ctx = document.getElementById('categoryChart').getContext('2d');
+  cards.forEach(card => {
+    const text = card.innerText.toLowerCase();
 
-// Ajuste dinámico de leyenda según tamaño de pantalla
-const isMobile = window.innerWidth < 768;
-
-new Chart(ctx, {
-type: 'doughnut',
-data: {
-labels: processedLabels,
-datasets: [{
-data: dataValues,
-backgroundColor: ['#06b6d4', '#8b5cf6', '#ec4899', '#34d399'],
-borderWidth: 0,
-hoverOffset: 15
-}]
-},
-options: {
-responsive: true,
-maintainAspectRatio: false,
-plugins: {
-legend: {
-position: isMobile ? 'bottom' : 'right',
-labels: {
-color: '#e2e8f0',
-font: { family: 'Inter', size: isMobile ? 10 : 12 },
-padding: isMobile ? 10 : 20,
-boxWidth: 12
-}
-}
-},
-cutout: '70%',
-}
-});
+    card.style.display = text.includes(term) ? 'block' : 'none';
+  });
 });
 </script>
+
 </body>
 </html>
